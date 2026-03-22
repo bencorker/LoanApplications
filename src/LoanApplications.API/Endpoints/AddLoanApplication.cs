@@ -21,13 +21,13 @@ internal static class AddLoanApplication
                 catch (ValidationException e)
                 {
                     logger.LogError(e, "Validation Error");
-                    return Results.Json(new ProblemDetails()
-                    {
-                        Title = "Validation Error",
-                        Status = StatusCodes.Status400BadRequest,
-                        Detail = e.Message,
-                        Extensions = e.Errors?.ToDictionary(x => x.PropertyName, x => (object)x.ErrorMessage ?? null)
-                    });
+                    var errors = e.Errors
+                        .GroupBy(x => x.PropertyName)
+                        .ToDictionary(
+                            g => g.Key,
+                            g => g.Select(x => x.ErrorMessage).ToArray());
+
+                    return Results.ValidationProblem(errors, title: "Validation Error");
                 }
                 catch (Exception e)
                 {

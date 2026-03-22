@@ -5,6 +5,7 @@ using Scalar.AspNetCore;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddProblemDetails();
 builder.Services.AddOpenApi(options => { options.AddScalarTransformers(); });
 builder.Services.AddLoanApplications(builder.Configuration);
 builder.Services.AddSerilog(opts =>
@@ -20,6 +21,8 @@ using (var scope = app.Services.CreateScope())
     var db = scope.ServiceProvider.GetRequiredService<LoanApplicationDbContext>();
     await db.Database.EnsureCreatedAsync();
 }
+app.UseExceptionHandler();
+app.UseStatusCodePages();
 app.Use(async (context, next) =>
 {
     context.Request.EnableBuffering();
