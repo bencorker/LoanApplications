@@ -22,7 +22,7 @@ public class Worker(IServiceProvider serviceProvider, ILogger<Worker> logger) : 
                 foreach (var application in pendingApplications)
                 {
                     logger.LogInformation("Processing loan application with id: {id}", application.Id);
-                    await service.CheckEligibilityAsync(application);
+                    await service.CheckEligibilityAsync(application, stoppingToken);
                     logger.LogInformation("Loan application with id: {id} processed.", application.Id);
                 }
             }

@@ -16,6 +16,7 @@ public static class ConfigurationExtensions
             options.UseSqlite(config.GetConnectionString("DefaultConnection") ?? "Data Source=loanapplications.db"));
         services.AddSingleton<IValidator<LoanApplicationRequest>, LoanApplicationRequestValidator>();
         services.AddTransient<ILoanApplicationService, LoanApplicationService>();
+        services.AddSingleton<IEligibilityRuleEvaluator, EligibilityRuleEvaluator>();
         services.AddTransient<ILoanEligibilityService, LoanEligibilityService>();
     }
 }

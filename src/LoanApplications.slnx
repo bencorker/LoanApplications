@@ -9,4 +9,5 @@
   <Project Path="LoanApplications.Aspire/LoanApplications.Aspire.csproj" />
   <Project Path="LoanApplications.BackgroundProcessor/LoanApplications.BackgroundProcessor.csproj" />
   <Project Path="LoanApplications.Core/LoanApplications.Core.csproj" />
+  <Project Path="LoanApplications.Tests/LoanApplications.Tests.csproj" />
 </Solution>
