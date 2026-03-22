@@ -11,7 +11,6 @@ public static class DbExtensions
         {
             return await context.LoanApplications
                 .Where(l => l.Status == LoanStatus.Pending)
-                .Include(l => l.DecisionLogEntries)
                 .ToListAsync(cancellationToken);
         }
 

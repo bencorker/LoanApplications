@@ -11,7 +11,7 @@ internal static class DecisionLogEntryMapping
         return new DecisionLogEntry
         {
             Id = Guid.NewGuid(),
-            LoanApplication = loanApplication,
+            LoanApplicationId = loanApplication.Id,
             RuleName = rule,
             Passed = passed,
             EvaluatedAt = evaluatedAt,

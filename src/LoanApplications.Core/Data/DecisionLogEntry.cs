@@ -5,6 +5,7 @@ namespace LoanApplications.Core.Data;
 
 public class DecisionLogEntry
 {
+    public Guid LoanApplicationId { get; set; }
     public LoanApplication? LoanApplication { get; set; }
     public Guid Id { get; set; }
     public LoanApplicationRule RuleName { get; set; }

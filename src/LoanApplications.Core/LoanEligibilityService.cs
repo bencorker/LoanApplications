@@ -12,19 +12,21 @@ public class LoanEligibilityService(
 {
     public async Task CheckEligibilityAsync(LoanApplication loanApplication, CancellationToken cancellationToken)
     {
-        loanApplication.DecisionLogEntries ??= [];
+        var existingRules = await db.DecisionLogEntries
+            .Where(e => e.LoanApplicationId == loanApplication.Id)
+            .Select(e => e.RuleName)
+            .ToListAsync(cancellationToken);
+
         var results = ruleEvaluator.Evaluate(loanApplication);
 
         foreach (var result in results)
         {
-            var existing = loanApplication.DecisionLogEntries.FirstOrDefault(e => e.RuleName == result.RuleName);
-
-            if (existing is not null)
+            if (existingRules.Contains(result.RuleName))
             {
                 logger.LogDebug("Rule {Rule} already evaluated for application {Id}, skipping", result.RuleName, loanApplication.Id);
                 continue;
             }
-            loanApplication.DecisionLogEntries.Add(result);
+            db.DecisionLogEntries.Add(result);
         }
 
         try
@@ -41,9 +43,16 @@ public class LoanEligibilityService(
 
         loanApplication.Status = allPassed ? LoanStatus.Approved : LoanStatus.Rejected;
         loanApplication.ReviewedAt = DateTime.UtcNow;
-        await db.SaveChangesAsync(cancellationToken);
-
-        logger.LogInformation("Loan application {Id} has been {Status}", loanApplication.Id, loanApplication.Status);
+        try
+        {
+            await db.SaveChangesAsync(cancellationToken);
+            logger.LogInformation("Loan application {Id} has been {Status}", loanApplication.Id, loanApplication.Status);
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "Error updating loan application status for {Id}", loanApplication.Id);
+        }
+        
     }
 
     public async Task<List<LoanApplication>> GetPendingApplicationsAsync(CancellationToken cancellationToken)
