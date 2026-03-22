@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/Solution/">
+    <File Path="..\README.md" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+  </Folder>
+  <Project Path="LoanApplications.API/LoanApplications.API.csproj" />
+  <Project Path="LoanApplications.Aspire/LoanApplications.Aspire.csproj" />
+  <Project Path="LoanApplications.BackgroundProcessor/LoanApplications.BackgroundProcessor.csproj" />
+  <Project Path="LoanApplications.Core/LoanApplications.Core.csproj" />
+</Solution>
