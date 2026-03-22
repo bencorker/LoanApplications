@@ -17,6 +17,8 @@ Aspire will start the API immediately (which will scaffold the database) and the
 
 You can also run the two projects seperately (via IDE or `dotnet run`) - But note the API must be ran first to scaffold the database
 
+A Scalar API interface is provided for the API
+
 ## Architecture Notes
 
 ### What would you change if this system had to handle **5,000,000 applications per day?**
