@@ -3,4 +3,8 @@
         <OutputType>Exe</OutputType>
         <UserSecretsId>a938f03a-b0c6-49bd-b119-ce9125cf2b94</UserSecretsId>
     </PropertyGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\LoanApplications.API\LoanApplications.API.csproj" />
+      <ProjectReference Include="..\LoanApplications.BackgroundProcessor\LoanApplications.BackgroundProcessor.csproj" />
+    </ItemGroup>
 </Project>
