@@ -1,5 +1,6 @@
 using FluentValidation;
 using LoanApplications.Core.Data;
+using LoanApplications.Core.Enums;
 using LoanApplications.Core.ViewModels;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,7 +22,7 @@ public class LoanApplicationService(
             MonthlyIncome = request.MonthlyIncome,
             RequestedAmount = request.RequestedAmount,
             TermMonths = request.TermMonths,
-            Status = "Pending",
+            Status = LoanStatus.Pending,
             CreatedAt = DateTime.UtcNow
         };
 
