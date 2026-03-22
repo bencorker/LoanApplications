@@ -1,18 +1,11 @@
-using FluentValidation;
 using LoanApplications.API.Endpoints;
 using LoanApplications.Core;
 using LoanApplications.Core.Data;
-using LoanApplications.Core.ViewModels;
-using LoanApplications.Core.Validators;
-using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi(options => { options.AddScalarTransformers(); });
-builder.Services.AddDbContext<LoanApplicationDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection") ?? "Data Source=loanapplications.db"));
-builder.Services.AddSingleton<IValidator<LoanApplicationRequest>, LoanApplicationRequestValidator>();
-builder.Services.AddTransient<ILoanApplicationService, LoanApplicationService>();
+builder.Services.AddLoanApplications(builder.Configuration);
 
 var app = builder.Build();
 

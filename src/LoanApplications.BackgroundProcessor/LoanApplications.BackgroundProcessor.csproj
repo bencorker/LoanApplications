@@ -5,4 +5,7 @@
     <ItemGroup>
         <PackageReference Include="Microsoft.Extensions.Hosting" />
     </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\LoanApplications.Core\LoanApplications.Core.csproj" />
+    </ItemGroup>
 </Project>
