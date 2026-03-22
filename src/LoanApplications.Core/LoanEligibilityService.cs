@@ -23,10 +23,14 @@ public class LoanEligibilityService(
         {
             if (existingRules.Contains(result.RuleName))
             {
-                logger.LogDebug("Rule {Rule} already evaluated for application {Id}, skipping", result.RuleName, loanApplication.Id);
+                logger.LogInformation("Rule {Rule} already evaluated for application {Id}, skipping", result.RuleName, loanApplication.Id);
                 continue;
             }
+            logger.LogInformation("Evaluated rule {Rule} for application {Id} - Passed {passed}", result.RuleName, loanApplication.Id, result.Passed);
+            
+            logger.LogInformation("Saving decision log entry for loan application {Id}", loanApplication.Id);
             db.DecisionLogEntries.Add(result);
+            logger.LogInformation("Decision log entry saved for loan application {Id}", loanApplication.Id);
         }
 
         try
